@@ -15,8 +15,6 @@ void codDLLhooks(HMODULE handle);
 typedef HMODULE(__cdecl* LoadsDLLsT)(const char* a1, FARPROC* a2, int a3);
 LoadsDLLsT originalLoadDLL = nullptr;
 
-typedef double(*CG_GetViewFovT)();
-CG_GetViewFovT CG_GetViewFov_og = nullptr;
 
 SafetyHookInline CG_GetViewFov_og_S{};
 
