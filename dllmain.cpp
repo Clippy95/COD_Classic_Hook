@@ -52,7 +52,7 @@ void CheckModule()
 HMODULE __cdecl hookCOD_dllLoad(const char* a1, FARPROC* a2, int a3) {
     HMODULE result = originalLoadDLL(a1, a2, a3);
     CheckModule();
-    printf("0x%X \n", (int)result);
+   // printf("0x%X \n", (int)result);
     return result;
 }
 
@@ -62,7 +62,6 @@ void InitHook() {
         //MessageBoxW(NULL, L"FAILED TO INITIALIZE", L"Error", MB_OK | MB_ICONERROR);
         return;
     }
-    MessageBoxW(NULL, L"FAILED TO ENABLE", L"Error", MB_OK | MB_ICONERROR);
     if (MH_CreateHook((void**)0x454440, &hookCOD_dllLoad, (void**)&originalLoadDLL) != MH_OK) {
         //MessageBoxW(NULL, L"FAILED TO HOOK", L"Error", MB_OK | MB_ICONERROR);
         return;
@@ -76,20 +75,15 @@ void InitHook() {
 }
 
 void codDLLhooks(HMODULE handle) {
-    printf("run");
+   // printf("run");
     uintptr_t OFFSET = (uintptr_t)handle;
-    printf("HANDLE : 0x%p ADDR : 0x%p \n", handle, OFFSET + 0x2CC20);
+    //printf("HANDLE : 0x%p ADDR : 0x%p \n", handle, OFFSET + 0x2CC20);
     CG_GetViewFov_og_S.reset();
     CG_GetViewFov_og_S = safetyhook::create_inline(OFFSET + 0x2CC20, &CG_GetViewFov_hook);
         //if (MH_CreateHook((void**)OFFSET + 0x2CC20, &CG_GetViewFov_hook, (void**)&CG_GetViewFov_og) != MH_OK) {
         //    MessageBoxW(NULL, L"FAILED TO HOOK", L"Error", MB_OK | MB_ICONERROR);
         //    return;
         //}
-        
-        if (MH_EnableHook(CG_GetViewFov_og) != MH_OK) {
-            MessageBoxW(NULL, L"FAILED TO ENABLE", L"Error", MB_OK | MB_ICONERROR);
-            return;
-        }
     
 }
 
@@ -102,7 +96,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
         InitHook();
-        OpenConsole();
+        //OpenConsole();
         //CheckModule();
         HMODULE moduleHandle;
         // idk why but this makes it not DETATCH prematurely
