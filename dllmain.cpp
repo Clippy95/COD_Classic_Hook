@@ -10,6 +10,7 @@
 typedef cvar_t*(*Cvar_GetT)(char* var_name, const char* var_value, int flags);
 Cvar_GetT Cvar_Get = (Cvar_GetT)0x004337F0;
 cvar_t* cg_fovscale;
+cvar_t* cg_fovfixaspectratio;
 void codDLLhooks(HMODULE handle);
 
 typedef HMODULE(__cdecl* LoadsDLLsT)(const char* a1, FARPROC* a2, int a3);
@@ -17,7 +18,7 @@ LoadsDLLsT originalLoadDLL = nullptr;
 
 
 SafetyHookInline CG_GetViewFov_og_S{};
-
+constexpr auto STANDARD_ASPECT = 1.33333333333f;
 void OpenConsole()
 {
     AllocConsole();
@@ -26,11 +27,20 @@ void OpenConsole()
     std::cout << "Console initialized.\n";
     printf("hi");
 }
-
+float GetAspectRatio() {
+    float x = (float)*(int*)0x047BE104;
+    float y = (float)*(int*)0x047BE108;
+    return x / y;
+}
 double CG_GetViewFov_hook() {
     double fov = CG_GetViewFov_og_S.call<double>();
-    if (cg_fovscale && cg_fovscale->value)
+    if (cg_fovscale && cg_fovscale->value) {
+        if (cg_fovfixaspectratio && cg_fovfixaspectratio->integer) {
+            fov = fov * (GetAspectRatio() / STANDARD_ASPECT);
+        }
         fov = fov * cg_fovscale->value;
+
+    }
     return fov;
 
 }
@@ -58,6 +68,7 @@ HMODULE __cdecl hookCOD_dllLoad(const char* a1, FARPROC* a2, int a3) {
 
 void InitHook() {
     cg_fovscale = Cvar_Get((char*)"cg_fovscale", "1.0", CVAR_ARCHIVE);
+    cg_fovfixaspectratio = Cvar_Get((char*)"cg_fovfixaspectratio", "1", CVAR_ARCHIVE);
     if (MH_Initialize() != MH_OK) {
         //MessageBoxW(NULL, L"FAILED TO INITIALIZE", L"Error", MB_OK | MB_ICONERROR);
         return;
