@@ -101,7 +101,7 @@ menuDef
 		text "@MENU_SUBTITLES"
 		cvar "cg_subtitles"
 //		cvarfloat "mss_volume" 0.8 0 1
-		rect 5 70 OPTIONS_CONTROL_SIZE
+		rect 5 75 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
@@ -126,7 +126,7 @@ menuDef
 		type ITEM_TYPE_SLIDER
 		text "@MENU_MASTER_VOLUME"
 		cvarfloat "mss_volume" 0.8 0 1
-		rect 5 100 OPTIONS_CONTROL_SIZE
+		rect 5 95 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
@@ -148,7 +148,7 @@ menuDef
 		type ITEM_TYPE_SLIDER
 		text "@MENU_MUSIC_VOLUME"
 		cvarfloat "mss_volume_music" 1 0 1
-		rect 5 130 OPTIONS_CONTROL_SIZE
+		rect 5 115 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
@@ -171,7 +171,7 @@ menuDef
 		type ITEM_TYPE_SLIDER
 		text "@MENU_EFFECTS_VOLUME"
 		cvarfloat "mss_volume_effects" 1 0 1
-		rect 5 160 OPTIONS_CONTROL_SIZE
+		rect 5 135 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
@@ -194,7 +194,7 @@ menuDef
 		type ITEM_TYPE_SLIDER
 		text "Voice Volume:   "
 		cvarfloat "mss_volume_voice" 1 0 1
-		rect 5 190 OPTIONS_CONTROL_SIZE
+		rect 5 155 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
@@ -221,7 +221,7 @@ menuDef
 				"@MENU_44KHZ__" 44 
 				}
 //		rect 17.5 130 290 12
-		rect 5 220 OPTIONS_CONTROL_SIZE
+		rect 5 175 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 //		textalignx 142
 //		textaligny 10
@@ -280,7 +280,7 @@ menuDef
 				"@MENU_CREATIVE_LABS_EAX", "Creative Labs EAX (TM)",
 				"@MENU_MILES_FAST_2D_POSITIONAL_AUDIO", "Miles Fast 2D Positional Audio"
 				}
-		rect 5 250 OPTIONS_CONTROL_SIZE
+		rect 5 195 OPTIONS_CONTROL_SIZE
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 100
 		textaligny 10
